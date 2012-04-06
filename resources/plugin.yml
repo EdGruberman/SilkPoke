@@ -1,0 +1,21 @@
+name: @NAME@
+description: Naturally drop blocks with Silk Touch enchantment
+version: @VERSION@
+author: @AUTHOR@
+main: @MAIN@
+permissions:
+    silktouch.basic:
+        description: Can use Silk Touch enchantment to drop additional basic blocks
+        default: true
+        children:
+            silktouch.material.ICE: true
+            silktouch.material.WEB: true
+            silktouch.material.SNOW: true
+            silktouch.material.SOIL: true
+            silktouch.material.THIN_GLASS: true
+    silktouch.nether.ice:
+        description: Can place ice in the nether
+        default: false
+    silktouch.nether.water:
+        description: Can create water in the nether by breaking ice
+        default: false

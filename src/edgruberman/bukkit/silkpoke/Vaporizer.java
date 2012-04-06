@@ -7,6 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.plugin.Plugin;
 
 /**
@@ -26,6 +27,18 @@ public class Vaporizer implements Listener {
 
         if (event.getPlayer().hasPermission("silktouch.nether.water")) return;
 
+        event.getBlock().setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
+        event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.EXTINGUISH, 0);
+        event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.SMOKE, BlockFace.UP);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onBlockFade(final BlockFadeEvent event) {
+        if (event.getBlock().getWorld().getEnvironment() != Environment.NETHER) return;
+
+        if (event.getBlock().getTypeId() != Material.ICE.getId()) return;
+
+        event.setCancelled(true);
         event.getBlock().setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
         event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.EXTINGUISH, 0);
         event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.SMOKE, BlockFace.UP);

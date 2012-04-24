@@ -22,7 +22,7 @@ public final class Main extends JavaPlugin implements Listener {
     public void onBlockBreak(final BlockBreakEvent event) {
         if (!event.getPlayer().getItemInHand().containsEnchantment(Enchantment.SILK_TOUCH)) return;
 
-        if (!event.getPlayer().hasPermission("silktouch.material." + event.getBlock().getType().name())) return;
+        if (!event.getPlayer().hasPermission("silkpoke.material." + event.getBlock().getType().name())) return;
 
         final SilkTouchBlockDrop custom = new SilkTouchBlockDrop(event.getBlock(), event.getPlayer());
         this.getServer().getPluginManager().callEvent(custom);

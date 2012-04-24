@@ -24,7 +24,7 @@ public class Sublimator implements Listener {
 
         if (event.getBlock().getTypeId() != Material.ICE.getId()) return;
 
-        if (event.getPlayer().hasPermission("silktouch.nether.ice")) return;
+        if (event.getPlayer().hasPermission("silkpoke.nether.ice")) return;
 
         // If the material does not change, we have to decrement the stack manually
         if (event.getBlockReplacedState().getType() == Material.AIR)

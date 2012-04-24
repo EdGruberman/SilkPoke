@@ -25,7 +25,7 @@ public class Vaporizer implements Listener {
 
         if (event.getBlock().getTypeId() != Material.ICE.getId()) return;
 
-        if (event.getPlayer().hasPermission("silktouch.nether.water")) return;
+        if (event.getPlayer().hasPermission("silkpoke.nether.water")) return;
 
         event.getBlock().setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
         event.getBlock().getWorld().playEffect(event.getBlock().getLocation(), Effect.EXTINGUISH, 0);

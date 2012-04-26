@@ -1,5 +1,6 @@
 package edgruberman.bukkit.silkpoke;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,8 +31,10 @@ public final class Main extends JavaPlugin implements Listener {
 
         event.setCancelled(true);
         final int id = event.getBlock().getTypeId();
-        event.getBlock().setTypeId(0);
-        event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), new ItemStack(id));
+        final byte damage = event.getBlock().getData();
+        final ItemStack item = new ItemStack(id, 1, damage, damage);
+        event.getBlock().setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
+        event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), item);
     }
 
 }

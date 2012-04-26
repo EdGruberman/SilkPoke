@@ -4,15 +4,17 @@ version: @VERSION@
 author: @AUTHOR@
 main: @MAIN@
 permissions:
-    silkpoke.basic:
-        description: Can use Silk Touch enchantment to drop additional basic blocks
+    silkpoke.common:
+        description: Can use Silk Touch enchantment to drop additional blocks
         default: true
         children:
             silkpoke.material.ICE: true
             silkpoke.material.WEB: true
             silkpoke.material.SNOW: true
+            silkpoke.material.SNOW_BLOCK: true
             silkpoke.material.SOIL: true
             silkpoke.material.THIN_GLASS: true
+            silkpoke.material.MONSTER_EGGS: true
     silkpoke.nether.ice:
         description: Can place ice in the nether
         default: false

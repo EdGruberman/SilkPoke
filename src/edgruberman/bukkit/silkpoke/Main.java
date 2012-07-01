@@ -31,7 +31,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         event.setCancelled(true);
         final int id = event.getBlock().getTypeId();
-        final byte damage = event.getBlock().getData();
+        final byte damage = event.getBlock().getState().getRawData();
         final ItemStack item = new ItemStack(id, 1, damage, damage);
         event.getBlock().setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
         event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), item);

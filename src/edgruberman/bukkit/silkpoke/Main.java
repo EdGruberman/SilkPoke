@@ -1,5 +1,6 @@
 package edgruberman.bukkit.silkpoke;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -12,11 +13,8 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.getConfig().options().copyDefaults(true);
-        this.saveConfig();
-        if (!this.getConfig().getBoolean("nether.ice")) new Sublimator(this);
-        if (!this.getConfig().getBoolean("nether.water")) new Vaporizer(this);
-        this.getServer().getPluginManager().registerEvents(this, this);
+        if (this.getConfig().getBoolean("vaporizer")) Bukkit.getPluginManager().registerEvents(new Vaporizer(), this);
+        Bukkit.getPluginManager().registerEvents(this, this);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -25,7 +23,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         if (!event.getPlayer().hasPermission("silkpoke.material." + event.getBlock().getType().name())) return;
 
-        final SilkTouchBlockDrop custom = new SilkTouchBlockDrop(event.getBlock(), event.getPlayer());
+        final SilkTouchBlockBreak custom = new SilkTouchBlockBreak(event.getBlock(), event.getPlayer());
         this.getServer().getPluginManager().callEvent(custom);
         if (custom.isCancelled()) return;
 

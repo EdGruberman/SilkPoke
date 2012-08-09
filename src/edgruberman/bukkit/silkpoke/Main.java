@@ -23,10 +23,6 @@ public final class Main extends JavaPlugin implements Listener {
 
         if (!event.getPlayer().hasPermission("silkpoke.material." + event.getBlock().getType().name())) return;
 
-        final SilkTouchBlockBreak custom = new SilkTouchBlockBreak(event.getBlock(), event.getPlayer());
-        this.getServer().getPluginManager().callEvent(custom);
-        if (custom.isCancelled()) return;
-
         event.setCancelled(true);
         final int id = event.getBlock().getTypeId();
         final byte damage = event.getBlock().getState().getRawData();

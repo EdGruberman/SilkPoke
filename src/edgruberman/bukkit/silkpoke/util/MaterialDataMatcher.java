@@ -11,7 +11,7 @@ public class MaterialDataMatcher {
 
     public boolean add(final String idData) {
         final String[] values = idData.split(":");
-        final Material material = Material.getMaterial(values[0]);
+        final Material material = Material.matchMaterial(values[0]);
         if (material == null) throw new IllegalArgumentException("Unrecognized Material: " + values[0]);
         final Short data = ( values.length >= 2 ? Short.valueOf(values[1]) : null );
         return this.add(material.getId(), data);

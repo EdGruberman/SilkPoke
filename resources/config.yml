@@ -1,1 +1,15 @@
+logLevel: INFO
+permissions:
+    silkpoke.config:
+        description: Can use Silk Touch enchantment to drop blocks defined in configuration
+        default: true
+        children:
+            silkpoke.material.WEB: true
+            silkpoke.material.SNOW: true
+            silkpoke.material.SNOW_BLOCK: true
+            silkpoke.material.SOIL: true
+            silkpoke.material.HUGE_MUSHROOM_1: true
+            silkpoke.material.HUGE_MUSHROOM_2: true
 vaporizer: true
+reload: '-> {1} plugin §2reloaded' # 1 = Plugin Name
+version: @VERSION@

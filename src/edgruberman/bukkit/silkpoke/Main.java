@@ -11,7 +11,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
@@ -26,14 +25,31 @@ public final class Main extends CustomPlugin implements Listener {
     public static Courier courier;
 
     @Override
-    public void onLoad() { this.putConfigMinimum("config.yml", "2.1.1a0");  }
+    public void onLoad() { this.putConfigMinimum("config.yml", "2.2.0");  }
 
     @Override
     public void onEnable() {
         this.setPathSeparator('|').reloadConfig();
         Main.courier = new ConfigurationCourier(this);
 
-        final ConfigurationSection permissions = this.getConfig().getConfigurationSection("permissions");
+        this.loadPermissions(this.getConfig().getConfigurationSection("permissions"));
+
+        if (this.getConfig().isList("pickupData")) {
+            final DataPicker picker = new DataPicker(this, this.getConfig().getStringList("pickupData"));
+            Bukkit.getPluginManager().registerEvents(picker, this);
+        }
+
+        if (this.getConfig().getBoolean("vaporizer"))
+            Bukkit.getPluginManager().registerEvents(new Vaporizer(), this);
+
+        Bukkit.getPluginManager().registerEvents(this, this);
+
+        this.getCommand("silkpoke:reload").setExecutor(new Reload(this));
+    }
+
+    private void loadPermissions(final ConfigurationSection permissions) {
+        if (permissions == null) return;
+
         for (final String name : permissions.getKeys(false)) {
             final ConfigurationSection permission = permissions.getConfigurationSection(name);
             final String description = permission.getString("description");
@@ -44,12 +60,6 @@ public final class Main extends CustomPlugin implements Listener {
 
             Bukkit.getPluginManager().addPermission(new Permission(name, description, permDefault, children));
         }
-
-        if (this.getConfig().getBoolean("vaporizer")) Bukkit.getPluginManager().registerEvents(new Vaporizer(), this);
-
-        Bukkit.getPluginManager().registerEvents(this, this);
-
-        this.getCommand("silkpoke:reload").setExecutor(new Reload(this));
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -69,22 +79,6 @@ public final class Main extends CustomPlugin implements Listener {
                 , new Object[] { item.getType().name(), (int) item.getDurability()
                 , event.getPlayer().getName(), event.getPlayer().getItemInHand().getType().name()
                 , Enchantment.SILK_TOUCH.getName() });
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onPlayerPickupItem(final PlayerPickupItemEvent pickup) {
-        final ItemStack item = pickup.getItem().getItemStack();
-        if (item.getTypeId() != Material.HUGE_MUSHROOM_1.getId() && item.getTypeId() != Material.HUGE_MUSHROOM_2.getId()) return;
-
-        pickup.setCancelled(true);
-        final HashMap<Integer, ItemStack> remaining = pickup.getPlayer().getInventory().addItem(item);
-        if (remaining.size() == 0) {
-            pickup.getItem().remove();
-            return;
-        }
-
-        // only possible to have one stack remaining
-        pickup.getItem().setItemStack(remaining.get(0));
     }
 
 }

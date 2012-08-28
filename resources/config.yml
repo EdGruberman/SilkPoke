@@ -8,11 +8,6 @@ permissions:
             silkpoke.material.SNOW: true
             silkpoke.material.SNOW_BLOCK: true
             silkpoke.material.SOIL: true
-            silkpoke.material.HUGE_MUSHROOM_1: true
-            silkpoke.material.HUGE_MUSHROOM_2: true
-pickupData:
-    - HUGE_MUSHROOM_1
-    - HUGE_MUSHROOM_2
 vaporizer: true
 reload: '-> {1} plugin §2reloaded' # 1 = Plugin Name
 version: @VERSION@

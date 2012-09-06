@@ -31,7 +31,7 @@ public final class Main extends CustomPlugin implements Listener {
     private final List<Permission> permissions = new ArrayList<Permission>();
 
     @Override
-    public void onLoad() { this.putConfigMinimum("config.yml", "2.2.0");  }
+    public void onLoad() { this.putConfigMinimum("config.yml", "2.2.5");  }
 
     @Override
     public void onEnable() {

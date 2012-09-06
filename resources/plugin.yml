@@ -1,7 +1,8 @@
-name: @NAME@
+name: SilkPoke
 version: @VERSION@
 description: Naturally drop blocks with Silk Touch enchantment
 author: EdGruberman (ed@rjump.com)
+website: http://github.com/EdGruberman/SilkPoke
 main: edgruberman.bukkit.silkpoke.Main
 commands:
     'silkpoke:reload':

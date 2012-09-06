@@ -9,5 +9,5 @@ permissions:
             silkpoke.material.SNOW_BLOCK: true
             silkpoke.material.SOIL: true
 vaporizer: true
-reload: '-> {1} plugin §2reloaded' # 1 = Plugin Name
+reload: '-> §7{1} plugin §2reloaded' # 1 = Plugin Name
 version: @VERSION@

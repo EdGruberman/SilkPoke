@@ -31,7 +31,7 @@ public final class Main extends CustomPlugin implements Listener {
     private final List<Permission> permissions = new ArrayList<Permission>();
 
     @Override
-    public void onLoad() { this.putConfigMinimum("config.yml", "2.2.5");  }
+    public void onLoad() { this.putConfigMinimum(CustomPlugin.CONFIGURATION_FILE, "2.2.5");  }
 
     @Override
     public void onEnable() {
@@ -39,11 +39,6 @@ public final class Main extends CustomPlugin implements Listener {
         Main.courier = new ConfigurationCourier(this);
 
         this.loadPermissions(this.getConfig().getConfigurationSection("permissions"));
-
-        if (this.getConfig().isList("pickupData")) {
-            final DataPicker picker = new DataPicker(this, this.getConfig().getStringList("pickupData"));
-            Bukkit.getPluginManager().registerEvents(picker, this);
-        }
 
         if (this.getConfig().getBoolean("vaporizer"))
             Bukkit.getPluginManager().registerEvents(new Vaporizer(), this);
@@ -84,7 +79,9 @@ public final class Main extends CustomPlugin implements Listener {
     public void onBlockBreak(final BlockBreakEvent event) {
         if (!event.getPlayer().getItemInHand().containsEnchantment(Enchantment.SILK_TOUCH)) return;
 
-        if (!event.getPlayer().hasPermission("silkpoke.material." + event.getBlock().getType().name())) return;
+        // permission must be explicitly set
+        final String permission = "silkpoke.material." + event.getBlock().getType().name();
+        if (!event.getPlayer().isPermissionSet(permission) || !event.getPlayer().hasPermission(permission)) return;
 
         event.setCancelled(true);
         final int id = event.getBlock().getTypeId();

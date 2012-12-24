@@ -1,10 +1,9 @@
-logLevel: INFO
+log-level: INFO
 permissions:
     silkpoke.config:
         description: Can use Silk Touch enchantment to drop blocks defined in configuration
         default: true
         children:
-            silkpoke.material.WEB: true
             silkpoke.material.SNOW: true
             silkpoke.material.SNOW_BLOCK: true
             silkpoke.material.SOIL: true

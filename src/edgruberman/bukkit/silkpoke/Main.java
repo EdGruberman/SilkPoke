@@ -31,7 +31,7 @@ public final class Main extends CustomPlugin implements Listener {
     private final List<Permission> permissions = new ArrayList<Permission>();
 
     @Override
-    public void onLoad() { this.putConfigMinimum(CustomPlugin.CONFIGURATION_FILE, "2.2.5");  }
+    public void onLoad() { this.putConfigMinimum("2.3.0"); }
 
     @Override
     public void onEnable() {
@@ -79,9 +79,8 @@ public final class Main extends CustomPlugin implements Listener {
     public void onBlockBreak(final BlockBreakEvent event) {
         if (!event.getPlayer().getItemInHand().containsEnchantment(Enchantment.SILK_TOUCH)) return;
 
-        // permission must be explicitly set
         final String permission = "silkpoke.material." + event.getBlock().getType().name();
-        if (!event.getPlayer().isPermissionSet(permission) || !event.getPlayer().hasPermission(permission)) return;
+        if (!event.getPlayer().hasPermission(permission)) return;
 
         event.setCancelled(true);
         final int id = event.getBlock().getTypeId();

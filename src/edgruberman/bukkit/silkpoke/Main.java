@@ -83,14 +83,14 @@ public final class Main extends CustomPlugin implements Listener {
         if (!event.getPlayer().hasPermission(permission)) return;
 
         event.setCancelled(true);
-        final int id = event.getBlock().getTypeId();
-        final byte damage = event.getBlock().getState().getRawData();
-        final ItemStack item = new ItemStack(id, 1, damage);
-        event.getBlock().setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
-        event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), item);
+
+        final ItemStack drop = new ItemStack(event.getBlock().getType(), 1);
+        drop.setData(event.getBlock().getState().getData());
+        event.getBlock().setType(Material.AIR);
+        event.getBlock().getWorld().dropItemNaturally(event.getBlock().getLocation(), drop);
 
         this.getLogger().log(Level.FINEST, "Dropped {0}:{1} for {2} using {3} with {4}"
-                , new Object[] { item.getType().name(), (int) item.getDurability()
+                , new Object[] { drop.getType().name(), (int) drop.getDurability()
                 , event.getPlayer().getName(), event.getPlayer().getItemInHand().getType().name()
                 , Enchantment.SILK_TOUCH.getName() });
     }

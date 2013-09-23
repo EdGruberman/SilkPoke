@@ -20,13 +20,12 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.Plugin;
 
 import edgruberman.bukkit.silkpoke.commands.Reload;
-import edgruberman.bukkit.silkpoke.messaging.ConfigurationCourier;
-import edgruberman.bukkit.silkpoke.messaging.Courier;
+import edgruberman.bukkit.silkpoke.messaging.Courier.ConfigurationCourier;
 import edgruberman.bukkit.silkpoke.util.CustomPlugin;
 
 public final class Main extends CustomPlugin implements Listener {
 
-    public static Courier courier;
+    public static ConfigurationCourier courier;
 
     private final List<Permission> permissions = new ArrayList<Permission>();
 
@@ -36,7 +35,7 @@ public final class Main extends CustomPlugin implements Listener {
     @Override
     public void onEnable() {
         this.setPathSeparator('|').reloadConfig();
-        Main.courier = new ConfigurationCourier(this);
+        Main.courier = ConfigurationCourier.Factory.create(this).build();
 
         this.loadPermissions(this.getConfig().getConfigurationSection("permissions"));
 
